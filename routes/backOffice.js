@@ -20,7 +20,7 @@ router.post('/products/add',auth,function(req, res){
   res.json({message:"product added"});
 });
 
-router.post('/products/edit/:id',auth,function(req, res){
+router.put('/products/edit/:id',auth,function(req, res){
   id=parseInt(req.params.id);
   name=req.body.product;
   description=req.body.description;
@@ -29,7 +29,7 @@ router.post('/products/edit/:id',auth,function(req, res){
   res.json(messageEdit);
 });
 
-router.get('/products/del/:id',auth,function(req, res){
+router.delete('/products/del/:id',auth,function(req, res){
   id=parseInt(req.params.id);
   lib.del(id);
   res.json(messageDelete);
