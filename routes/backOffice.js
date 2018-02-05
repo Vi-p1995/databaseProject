@@ -1,6 +1,8 @@
 var express = require('express');
 var router= express.Router();
 var lib = require('dbvi');
+var products=lib.products;
+var productsBuyed=lib.shopping;
 
 var auth = function(req,res,next){
   if(req.query.token==="admin"){
@@ -20,27 +22,24 @@ router.post('/products/add',auth,function(req, res){
   res.json({message:"product added"});
 });
 
-router.post('/products/edit/:id',auth,function(req, res){
+router.put('/products/edit/:id',auth,function(req, res){
   id=parseInt(req.params.id);
   name=req.body.product;
   description=req.body.description;
   amount=parseInt(req.body.amount);
-  lib.edit(id,name,description,amount);
-  res.json(messageEdit);
+  res.json(lib.edit(id,name,description,amount));
 });
 
-router.get('/products/del/:id',auth,function(req, res){
+router.delete('/products/del/:id',auth,function(req, res){
   id=parseInt(req.params.id);
-  lib.del(id);
-  res.json(messageDelete);
+  res.json(lib.del(id));
 });
 
 router.get('/products/buyed',auth,function(req, res){
   if(req.query.user != undefined ){
-    lib.search(req.query.user);
-    res.json(arraySearch);
+    res.json(lib.search(req.query.user));
   }else{
-    res.json(shopping);
+    res.json(productsBuyed);
   }
 });
 

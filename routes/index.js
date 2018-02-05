@@ -12,11 +12,10 @@ var auth = function(req,res,next){
   }
 };
 
-router.get('/:user/buy/:id',auth,function(req, res){
+router.get('/buy/:id',auth,function(req, res){
   id=parseInt(req.params.id);
-  buyer=req.params.user;
-  lib.buy(id,buyer);
-  res.status(201).json(messageBuy);
+  buyer=req.query.user;
+  res.status(201).json(lib.buy(id,buyer));
 });
 
 module.exports=router;
