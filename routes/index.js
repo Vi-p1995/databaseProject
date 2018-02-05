@@ -12,9 +12,10 @@ var auth = function(req,res,next){
   }
 };
 
-router.get('/:user/buy/:id',auth,function(req, res){
+router.get('/buy/:id',auth,function(req, res){ // nel url non hai bisogno dell'user che ti viene da req.query
+  // l'user lo prendi da req.query.token
   id=parseInt(req.params.id);
-  buyer=req.params.user;
+  buyer=req.params.user; // diventa req.query token
   lib.buy(id,buyer);
   res.status(201).json(messageBuy);
 });
